@@ -1,0 +1,13 @@
+{
+    "makefile.configureOnOpen": true,
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/Users/mehrabmh/projects/AP-TA",
+            "binaryPath": "/Users/mehrabmh/projects/AP-TA/ModelSim.out",
+            "binaryArgs": []
+        }
+    ],
+    "files.associations": {
+        "ostream": "cpp"
+    }
+}
