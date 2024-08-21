@@ -1,10 +1,10 @@
 CXX = g++
 CXXFLAGS = -std=c++20 -Wall -Wextra -O2
 
-SRCS = main.cpp command_manager.cpp gate.cpp wire.cpp and_gate.cpp base_module.cpp or_gate.cpp not_gate.cpp modules.cpp module_factory.cpp
+SRCS = main.cpp command_manager.cpp gate.cpp wire.cpp and_gate.cpp base_module.cpp or_gate.cpp not_gate.cpp modules.cpp module_factory.cpp circuit.cpp
 OBJS = $(SRCS:%.cpp=bin/%.o)
 
-DEPS = wire.hpp base_module.hpp gate.hpp command_manager.hpp and_gate.hpp or_gate.hpp not_gate.hpp exceptions.hpp modules.hpp module_factory.hpp
+DEPS = wire.hpp base_module.hpp gate.hpp command_manager.hpp and_gate.hpp or_gate.hpp not_gate.hpp exceptions.hpp modules.hpp module_factory.hpp circuit.hpp
 
 TARGET = ModelSim.out
 

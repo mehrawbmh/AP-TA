@@ -20,6 +20,7 @@
 CommandManager::CommandManager()
 {
     this->factory = new ModuleFactory();
+    this->circuit = new Circuit();
 }
 
 std::string trim(const std::string &str) {
@@ -78,13 +79,19 @@ void CommandManager::handle(const string &input) {
                 cerr << "you can't put values in new_module mode!";
                 return;
             }
+            
+            if (words[1] == "0" || words[1] == "1") {
+                //put
+            } else {
+                cerr << "value not valid" << endl;
+            }
 
         } else if (command == COMMAND_PRINT) {
             if (words.size() != 2) {
                 cerr << "print must accepts one argument!" << endl;
                 return;
-            }
-            cout << "printing...: \n";
+            } 
+            cout << this->circuit->print(stoi(words[1])) << endl;
 
         } else {
             cout << "NOt supported command:)\n";
