@@ -17,3 +17,13 @@ Gate::Gate(vector<int> _inputs, int _output): Gate()
 Gate::~Gate()
 {
 }
+
+vector<Wire*> Gate::getInputs()
+{
+    return this->inputs;
+}
+
+Wire* Gate::getOutput()
+{
+    return this->output;
+}

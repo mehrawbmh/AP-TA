@@ -12,6 +12,8 @@ public:
     Gate(vector<int> inputs, int output);
     virtual ~Gate();
     virtual Logic resolve() = 0;
+    vector<Wire*> getInputs();
+    Wire* getOutput();
 };
 
 #endif
