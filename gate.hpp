@@ -10,7 +10,7 @@ class Gate: public BaseModule {
 public:
     Gate() = default;
     Gate(vector<int> inputs, int output);
-    ~Gate() = default;
+    virtual ~Gate();
     virtual Logic resolve() = 0;
 };
 

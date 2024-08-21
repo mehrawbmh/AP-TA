@@ -13,3 +13,7 @@ Gate::Gate(vector<int> _inputs, int _output): Gate()
     }
     this->output = new Wire(_output);
 }
+
+Gate::~Gate()
+{
+}
