@@ -35,10 +35,6 @@ std::string trim(const std::string &str) {
 
 void CommandManager::handle(const string &input) {
     vector<string> words = this->parseInput(input);
-    if (words.size() <= 1) {
-        cerr << "invalid input" << endl;
-        return;
-    }
 
     auto command = words[0];
 
@@ -47,16 +43,45 @@ void CommandManager::handle(const string &input) {
             if (words.size() != 3) {
                 cerr << "invalid inputs to create module" << endl;
                 return;
-            } 
-            assert(factory->getCurrentModule() == nullptr);
+            }
+            assert(this->factory->getCurrentModule() == nullptr);
             this->factory->createNew(words[1], stoi(words[2]));
 
         } else if (command == COMMAND_END_MOODULE) {
+            assert(this->factory->getCurrentModule() != nullptr);
             this->factory->unsetCurrentModule();
-        } else if (command == COMMAND_ADD) {
-            return;
-        }
+        
+        } else if (command == COMMAND_CONNECT) {
+            if (words.size() != 3) {
+                cerr << "invalid inputs to conect wires" << endl;
+                return;
+            }
+            if (this->factory->getCurrentModule() != nullptr) {
+                this->factory->getCurrentModule()->connect(words[1], words[2]);
+            } // todo write else
 
+        } else if (command == COMMAND_ADD) {
+            if (this->factory->getCurrentModule() != nullptr) {
+                assert(words.size() >= 5);
+                vector<int> inputs;
+                for (int i=3; i < static_cast<int>(words.size()) - 1; i++) {
+                    inputs.push_back(stoi(words[i]));
+                }
+                auto *gate = this->factory->createGate(stoi(words[2]), words[1], inputs, stoi(words[words.size() - 1]));
+                for (int j = 0; j < gate->getInputs().size(); j++) {
+                    // add to main cercuit
+                }
+
+            } else {
+                
+            }
+        } else {
+            cout << "NOt supported command:)\n";
+            cout << this->factory->getCurrentModule()->getName() << endl;
+            cout << this->factory->getCurrentModule()->getOutput()->getId() << endl;
+            cout << this->factory->getCurrentModule()->getOutput()->getVal() << endl;
+        }
+    
     } catch(const BadInputException &e) {
         cerr << e.what() << endl;
     } catch(const NotFoundExcpetion &e2) {
@@ -75,7 +100,7 @@ vector<string> CommandManager::parseInput(const string &input)
             continue;
         }
         words.push_back(token);
-        cout << "token: " << token << endl;
+        // cout << "token: " << token << endl;
     }
 
     return words;
