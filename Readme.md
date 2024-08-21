@@ -25,7 +25,7 @@ This project is a simplified version of a ModelSim simulator implemented in C++.
 1. **Clone the Repository**:
     ```bash
     git clone https://github.com/mehrawbmh/mini-modelsim.git
-    cd <mini-modelsim>
+    cd mini-modelsim
     ```
 
 2. **Compile the Project**:
