@@ -21,9 +21,14 @@ ostream& operator<<(ostream& os, Logic logic) {
     return os;
 }
 
-Wire::Wire(int _id, bool _val): id(_id) {
+Wire::Wire(int _id, bool _val): id(_id)
+{
     val = _val ? Logic::ONE : Logic::ZERO;
     cout << "wire " << this->id << "initiated." << endl;
+}
+
+Wire::Wire(int _id, Logic _val): val(_val), id(_id)
+{
 }
 
 Wire::Wire(int _id): id(_id)

@@ -22,6 +22,8 @@ private:
 public:
     Wire(int _id, bool _val);
     Wire(int _id);
+    Wire(int _id, Logic _val);
+    
     void setId(int id);
     int getId();
     void setVal(bool val);
