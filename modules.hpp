@@ -19,10 +19,10 @@ public:
 
     virtual Logic resolve() override;
     void addGate(int id, Gate* gate);
-    string getName() const;
-    // void connect(int wireId, int gateId, int inputIndex);
-    // void connectOutput(int wireId, int gateId);
+    const string &getName() const;
+    void connect(string firstId, string secondId);
     void put(int wireId, bool value);
+    Wire* getOutput() const;
     // void printResult();
 };
 
