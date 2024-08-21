@@ -1,5 +1,6 @@
 #include "modules.hpp"
 #include "exceptions.hpp"
+#include "gate.hpp"
 
 Module::Module(const std::string & _name, int numInputs): name(_name)
 {
@@ -24,6 +25,16 @@ Module::~Module()
     }
     for (auto& wire : wires) {
         delete wire.second;
+    }
+}
+
+Module::Module(const Module& other) : name(other.name) {
+    for (const auto& [id, gate] : other.gates) {
+        this->gates[id] = gate;
+    }
+
+    for (const auto& [id, wire] : other.wires) {
+        this->wires[id] = new Wire(*wire);
     }
 }
 

@@ -15,6 +15,7 @@ private:
 
 public:
     Module(const std::string& _name, int numInputs);
+    Module(const Module &other); // copy constructor
     ~Module();
 
     virtual Logic resolve() override;
@@ -23,7 +24,6 @@ public:
     void connect(string firstId, string secondId);
     void put(int wireId, bool value);
     Wire* getOutput() const;
-    // void printResult();
 };
 
 
