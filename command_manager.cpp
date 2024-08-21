@@ -15,6 +15,7 @@
 #define COMMAND_CONNECT "connect"
 #define COMMAND_NEW_MODULE "new_module"
 #define COMMAND_END_MOODULE "end_module"
+#define COMMAND_PRINT "print"
 
 CommandManager::CommandManager()
 {
@@ -35,7 +36,7 @@ std::string trim(const std::string &str) {
 
 void CommandManager::handle(const string &input) {
     vector<string> words = this->parseInput(input);
-
+    if (words.empty()) return;
     auto command = words[0];
 
     try {
@@ -67,14 +68,24 @@ void CommandManager::handle(const string &input) {
                 for (int i=3; i < static_cast<int>(words.size()) - 1; i++) {
                     inputs.push_back(stoi(words[i]));
                 }
-                auto *gate = this->factory->createGate(stoi(words[2]), words[1], inputs, stoi(words[words.size() - 1]));
-                for (int j = 0; j < gate->getInputs().size(); j++) {
-                    // add to main cercuit
-                }
-
+                this->factory->createGate(stoi(words[2]), words[1], inputs, stoi(words[words.size() - 1]));
             } else {
-                
+                //todo: Add to main circuit
             }
+
+        } else if (command == COMMAND_PUT) {
+            if (this->factory->getCurrentModule() != nullptr) {
+                cerr << "you can't put values in new_module mode!";
+                return;
+            }
+
+        } else if (command == COMMAND_PRINT) {
+            if (words.size() != 2) {
+                cerr << "print must accepts one argument!" << endl;
+                return;
+            }
+            cout << "printing...: \n";
+
         } else {
             cout << "NOt supported command:)\n";
             cout << this->factory->getCurrentModule()->getName() << endl;

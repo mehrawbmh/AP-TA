@@ -39,7 +39,7 @@ void Module::addGate(int id, Gate *gate)
     }
 
     auto gateInputs = gate->getInputs();
-    for (int j = 0; j < gateInputs.size(); j++) {
+    for (int j = 0; j < static_cast<int>(gateInputs.size()); j++) {
         this->wires[to_string(gateInputs[j]->getId())] = gateInputs[j];
     }
 

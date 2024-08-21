@@ -12,11 +12,10 @@ int main() {
     while (true) {
         getline(cin, input);
         if ((input == "EOF")) {
-            break;;
+            break;
         }
         manager->handle(input);
     }
 
-    cout << "program ended." << endl;
     return 0;
 }
