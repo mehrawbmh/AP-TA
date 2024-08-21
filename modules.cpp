@@ -15,7 +15,7 @@ Module::Module(const std::string & _name, int numInputs): name(_name)
         this->wires[inputName] = wire;
         this->inputs.push_back(wire);
     }
-    this->output = new Wire(0); // todo: creating output wire with id 0!!
+    this->output = new Wire(0); // fixme: creating output wire with id 0!!
 }
 
 Module::~Module()
@@ -77,7 +77,6 @@ void Module::connect(string firstId, string secondId)
         this->wires[firstId] = this->output;
     }
 
-    //todo: how to connect two normal wires?
     if (this->wires.find(firstId) != this->wires.end() && this->wires.find(secondId) != this->wires.end()) {
         this->wires[firstId] = this->wires[secondId];
     }

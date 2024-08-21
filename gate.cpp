@@ -4,7 +4,6 @@ Gate::Gate(vector<int> _inputs, int _output): Gate()
 {
     if (_inputs.size() < 2) {
         throw BadInputException("incompatible inputs");
-        //todo: throw exception?
         return;
     } 
 

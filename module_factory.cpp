@@ -22,7 +22,6 @@ Module* ModuleFactory::createNew(const string &name, int inputCount)
 Gate* ModuleFactory::createGate(int id, const string &type, vector<int> inputs, int output)
 {
     Gate *gate;
-    //TODO use id in gates
     if (type == "or") {
         gate = new OrGate(inputs, output);
     } else if (type == "nor") {
