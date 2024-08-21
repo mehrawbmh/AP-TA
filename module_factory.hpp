@@ -10,7 +10,8 @@ private:
     vector<Module*> modules;
     Module* current = nullptr;
 public:
-    Module* createNew(string name, int inputCount);
+    Module* createNew(const string &name, int inputCount);
+    Gate* createGate(int id, const string &type, vector<int> inputs, int output);
     Module* getCurrentModule();
     void unsetCurrentModule();
 };
