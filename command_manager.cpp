@@ -58,9 +58,27 @@ void CommandManager::handle(const string &input) {
                 cerr << "invalid inputs to conect wires" << endl;
                 return;
             }
+
             if (this->factory->getCurrentModule() != nullptr) {
                 this->factory->getCurrentModule()->connect(words[1], words[2]);
-            } // todo write else
+                
+            } else {
+                int first = stoi(words[1]);
+                int second = stoi(words[2]);
+                if (first == second) {
+                    cerr << "invalid connection" << endl;
+                    return;
+                }
+
+                if (
+                    this->circuit->wires.find(first) != this->circuit->wires.end() &&
+                    this->circuit->wires.find(first) != this->circuit->wires.end()     
+                ) {
+                    this->circuit->wires[first] = this->circuit->wires[second];
+                } else {
+                    cerr << "ID not found" << endl;
+                }
+            }
 
         } else if (command == COMMAND_ADD) {
             if (this->factory->getCurrentModule() != nullptr) {
@@ -94,10 +112,7 @@ void CommandManager::handle(const string &input) {
             cout << this->circuit->print(stoi(words[1])) << endl;
 
         } else {
-            cout << "NOt supported command:)\n";
-            cout << this->factory->getCurrentModule()->getName() << endl;
-            cout << this->factory->getCurrentModule()->getOutput()->getId() << endl;
-            cout << this->factory->getCurrentModule()->getOutput()->getVal() << endl;
+            cerr << "invalid command!" << endl;
         }
     
     } catch(const BadInputException &e) {
@@ -118,7 +133,6 @@ vector<string> CommandManager::parseInput(const string &input)
             continue;
         }
         words.push_back(token);
-        // cout << "token: " << token << endl;
     }
 
     return words;
