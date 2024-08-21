@@ -94,11 +94,13 @@ void CommandManager::handle(const string &input) {
 
         } else if (command == COMMAND_PUT) {
             if (this->factory->getCurrentModule() != nullptr) {
-                cerr << "you can't put values in new_module mode!";
+                cerr << "you can't put values in new_module mode!" << endl;
                 return;
             }
+
+            assert(words.size() == 3);
             
-            if (words[1] == "0" || words[1] == "1") {
+            if (words[2] == "0" || words[2] == "1") {
                 //put
             } else {
                 cerr << "value not valid" << endl;
