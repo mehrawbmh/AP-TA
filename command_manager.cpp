@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <vector>
 #include <cctype>
+#include <cassert>
 
 #include "command_manager.hpp"
 #include "and_gate.hpp"
@@ -14,6 +15,11 @@
 #define COMMAND_CONNECT "connect"
 #define COMMAND_NEW_MODULE "new_module"
 #define COMMAND_END_MOODULE "end_module"
+
+CommandManager::CommandManager()
+{
+    this->factory = new ModuleFactory();
+}
 
 std::string trim(const std::string &str) {
     auto start = std::find_if_not(str.begin(), str.end(), [](unsigned char ch) {
@@ -28,9 +34,44 @@ std::string trim(const std::string &str) {
 }
 
 void CommandManager::handle(const string &input) {
-    vector<string> words;
+    vector<string> words = this->parseInput(input);
+    if (words.size() <= 1) {
+        cerr << "invalid input" << endl;
+        return;
+    }
+
+    auto command = words[0];
+
+    try {
+        // if (command == "new_module") {
+            // else factory->createNew(words[1], stoi(words[2]));
+        // }
+        if (command == COMMAND_NEW_MODULE) {
+            if (words.size() != 3) {
+                cerr << "invalid inputs to create module" << endl;
+                return;
+            } 
+            assert(factory->getCurrentModule() == nullptr);
+            this->factory->createNew(words[1], stoi(words[2]));
+
+        } else if (command == COMMAND_END_MOODULE) {
+            this->factory->unsetCurrentModule();
+        } else if (command == COMMAND_ADD) {
+            return;
+        }
+
+    } catch(const BadInputException &e) {
+        cerr << e.what() << endl;
+    } catch(const NotFoundExcpetion &e2) {
+        cerr << e2.what() << endl;
+    }
+}
+
+vector<string> CommandManager::parseInput(const string &input)
+{
     stringstream iss(input);
     string token;
+    vector<string> words;
 
     while (getline(iss, token, ' ')) {
         if (trim(token).empty()) {
@@ -40,40 +81,5 @@ void CommandManager::handle(const string &input) {
         cout << "token: " << token << endl;
     }
 
-    if (words.size() <= 1) {
-        cerr << "invalid input" << endl;
-        return;
-    }
-
-    string command = words[0];
-
-    try {
-        auto * x = new OrGate({1,2}, 3);
-        auto *a = new NorGate({6}, 4);
-    
-        cout << "created and gate" << endl;
-
-        x->put(1, false);
-        x->put(2, true);
-
-        a->put(1, true);
-        a->put(2, true);
-        a->put(3, false);
-        // x->put(8, false);
-        
-        Logic y = x->resolve();
-        Logic z = a->resolve();
-
-        cout << y << endl;
-        cout << z << endl;
-        
-    } catch(const BadInputException &e) {
-        cerr << e.what() << endl;
-    }
-
-    if (command == COMMAND_NEW_MODULE) {
-        return;
-    } else if (command == COMMAND_ADD) {
-        return;
-    }
+    return words;
 }
