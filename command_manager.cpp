@@ -43,9 +43,6 @@ void CommandManager::handle(const string &input) {
     auto command = words[0];
 
     try {
-        // if (command == "new_module") {
-            // else factory->createNew(words[1], stoi(words[2]));
-        // }
         if (command == COMMAND_NEW_MODULE) {
             if (words.size() != 3) {
                 cerr << "invalid inputs to create module" << endl;
